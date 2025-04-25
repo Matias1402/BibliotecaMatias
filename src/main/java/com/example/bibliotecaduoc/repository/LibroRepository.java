@@ -4,12 +4,13 @@ import com.example.bibliotecaduoc.model.libro;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Repository
 public class LibroRepository {
 
-    //Esto guardara todos los libros
+    //Esto guarda todos los libros
     private List<libro> listaLibros = new ArrayList<>();
 
     public LibroRepository(){
@@ -93,6 +94,54 @@ public class LibroRepository {
     }
     public int TotalLibros(){
         return listaLibros.size();
+    }
+    public libro buscarLibroPorAutor(String autor){
+        for (libro libro : listaLibros){
+            if (libro.getAutor().equals(autor)){
+                return libro;
+            }
+        }
+        return null;
+    }
+    public libro buscarLibroMasAntiguo() {
+
+        libro MasAntiguo=null;//Anotacion recordatorio: Esto hace que el valor "mas antiguo" inicialmente no exista, es decir, que esta en null a la espera de un dato
+        int menorAnio= Integer.MAX_VALUE;//Esto hara que haga una comparativa entre todos los valores para elegir el año menor, dada la logica de como funcionan los años
+
+        for (libro libro : listaLibros) {
+            if (libro.getFechaPublicacion()<menorAnio){
+                menorAnio = libro.getFechaPublicacion();//para actualizar fecha por fecha
+                MasAntiguo = libro;//para asignar a "libro" el mas antiguo
+            }
+        }
+        return MasAntiguo;
+
+    }
+    public libro buscarLibroMasReciente() {
+
+        libro MasReciente = null;//Anotacion recordatorio: Esto hace que el valor "mas antiguo" inicialmente no exista, es decir, que esta en null a la espera de un dato
+        int MayorAnio = Integer.MIN_VALUE;//Esto hara que haga una comparativa entre todos los valores para elegir el año menor, dada la logica de como funcionan los años
+
+        for (libro libro : listaLibros) {
+            if (libro.getFechaPublicacion() > MayorAnio) {
+                MayorAnio = libro.getFechaPublicacion();//para actualizar fecha por fecha
+                MasReciente = libro;//para asignar a "libro" el mas antiguo
+            }
+        }
+        return MasReciente;
+    }
+
+    public List<libro> ordenAsc(){
+        List<libro> orden = new ArrayList<>(listaLibros);
+        orden.sort(Comparator.comparing(libro::getFechaPublicacion));
+        return orden;
+
+    }
+    public List<libro> ordenDesc(){
+        List<libro> ordenDESC = new ArrayList<>(listaLibros);
+        ordenDESC.sort(Comparator.comparing(libro::getFechaPublicacion).reversed());
+        return ordenDESC;
+
     }
 
 

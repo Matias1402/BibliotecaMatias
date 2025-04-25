@@ -47,7 +47,27 @@ public class libroController {
         List<libro> libros = libroService.getLibroAnio(fechaPublicacion);
         return new Object[]{libros, "La Cantidad de libros con esta fecha es: " + libros.size()};
     }
+    @GetMapping("/AUTOR/{autor}")
+    public libro buscarLibroAutor(@PathVariable String autor) {
+        return libroService.getLibroAutor((autor));
+    }
 
+    @GetMapping("/ANTIGUO")
+    public libro buscarPorAntiguedadMayor(){
+        return libroService.getMasAntiguo();
+    }
+    @GetMapping("/RECIENTE")
+    public libro buscarPorAntiguedadReciente(){
+        return libroService.getMasReciente();
+    }
+    @GetMapping("/OrdenASC")
+    public List<libro> ListadoASC(){
+        return libroService.getOrdenAsc();
+    }
+    @GetMapping("/OrdenDESC")
+    public List<libro> ListadoDESC(){
+        return libroService.getOrdenDesc();
+    }
 
 }
 

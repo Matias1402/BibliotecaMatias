@@ -48,8 +48,25 @@ public class libroServices {
     public int totalLibrosV2(){
         return libroRepository.TotalLibros();
     }
+    public libro getLibroAutor(String autor){
 
+        return libroRepository.buscarLibroPorAutor(autor);
+    }
 
+    public libro getMasAntiguo(){
+        return libroRepository.buscarLibroMasAntiguo();
+    }
+
+    public libro getMasReciente(){
+        return libroRepository.buscarLibroMasReciente();
+    }
+
+    public List<libro> getOrdenAsc(){
+        return libroRepository.ordenAsc();
+    }
+    public List<libro> getOrdenDesc(){
+        return libroRepository.ordenDesc();
+    }
 
 }
 
